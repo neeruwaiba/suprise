@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle, #ff6a88, #ff99ac);
+  overflow: hidden;
+  color: white;
+}
+
+/* Layout */
+.main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 60px 40px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.left, .right {
+  flex: 1;
+}
+
+/* Inputs */
+input, textarea {
+  width: 90%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 30px;
+  border-radius: 25px;
+  border: none;
+  background: white;
+  color: #ff4d6d;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Love Card */
+#letter {
+  display: none;
+  background: rgba(255,255,255,0.18);
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+}
+
+#finalMsg {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* ✅ FIXED HEART FRAME (MOBILE + GITHUB SAFE) */
+.heart-frame {
+  width: 260px;
+  height: 240px;
+  margin: 20px auto;
+  background: #ff4d6d;
+  clip-path: path("M130 230 L20 110 C-20 40 60 -20 130 40 C200 -20 280 40 240 110 Z");
+  box-shadow: 0 0 25px rgba(255, 77, 109, 0.8);
+}
+
+.heart-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="main">
+
+  <div class="left">
+    <h1>💖 Valentine’s Love Page</h1>
+
+    <input id="name" placeholder="Your Name">
+    <textarea id="msg" rows="4" placeholder="Write your love message..."></textarea>
+
+    <input type="file" accept="image/*" onchange="loadPhoto(event)">
+
+    <br><br>
+    <button onclick="createLove()">Create Love 💌</button>
+    <button onclick="shareLove()">Copy Share Link 🔗</button>
+  </div>
+
+  <div class="right">
+    <div id="letter">
+      <h2 id="toName"></h2>
+
+      <div class="heart-frame">
+        <img id="photo">
+      </div>
+
+      <p id="finalMsg"></p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let uploadedImage = "";
+
+// Load photo
+function loadPhoto(event) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    uploadedImage = reader.result;
+    document.getElementById("photo").src = uploadedImage;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+// Create love card
+function createLove() {
+  const name = document.getElementById("name").value || "My Love";
+  const msg = document.getElementById("msg").value || "You mean everything to me ❤️";
+
+  document.getElementById("toName").innerText = "Dear " + name + " 💕";
+  document.getElementById("finalMsg").innerText = msg;
+  document.getElementById("letter").style.display = "block";
+
+  const params = new URLSearchParams();
+  params.set("name", name);
+  params.set("msg", msg);
+  history.replaceState(null, "", "?" + params.toString());
+}
+
+// Copy share link
+function shareLove() {
+  navigator.clipboard.writeText(location.href);
+  alert("Share link copied 💖");
+}
+
+// Load shared data
+const url = new URLSearchParams(window.location.search);
+if (url.get("name")) {
+  document.getElementById("letter").style.display = "block";
+  document.getElementById("toName").innerText = "Dear " + url.get("name") + " 💕";
+  document.getElementById("finalMsg").innerText = url.get("msg");
+}
+
+// Floating hearts animation
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}, 450);
+</script>
+
+</body>
+</html>
