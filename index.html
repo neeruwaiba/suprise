@@ -1,189 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Valentine 💖</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Valentine</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap" rel="stylesheet">
+  <!-- Font Awesome for heart icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset */
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: 'Poppins', sans-serif; }
 
-<style>
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle, #ff6a88, #ff99ac);
-  overflow: hidden;
-  color: white;
-}
+    /* Background */
+    body {
+      background: linear-gradient(135deg, #FFC0CB 0%, #FFB6C1 50%, #FF4C4C 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      overflow-x: hidden;
+    }
 
-/* Layout */
-.main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 60px 40px;
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-}
+    /* Landing page container */
+    .container {
+      max-width: 700px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
 
-.left, .right {
-  flex: 1;
-}
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease;
+    }
 
-/* Inputs */
-input, textarea {
-  width: 90%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 15px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-}
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      animation: fadeIn 3s ease;
+    }
 
-button {
-  padding: 12px 30px;
-  border-radius: 25px;
-  border: none;
-  background: white;
-  color: #ff4d6d;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 10px;
-}
+    /* Heart Button */
+    .btn-heart {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      background: #FF4C4C;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
 
-button:hover {
-  transform: scale(1.05);
-}
+    .btn-heart:hover {
+      transform: scale(1.1);
+      background: #FF2D2D;
+    }
 
-/* Love Card */
-#letter {
-  display: none;
-  background: rgba(255,255,255,0.18);
-  padding: 30px;
-  border-radius: 25px;
-  text-align: center;
-}
+    /* Love letter section (hidden initially) */
+    .love-letter {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      animation: fadeIn 2s ease forwards;
+    }
 
-#finalMsg {
-  font-size: 18px;
-  line-height: 1.6;
-  margin-top: 20px;
-}
+    /* Footer */
+    footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
 
-/* ✅ FIXED HEART FRAME (MOBILE + GITHUB SAFE) */
-.heart-frame {
-  width: 260px;
-  height: 240px;
-  margin: 20px auto;
-  background: #ff4d6d;
-  clip-path: path("M130 230 L20 110 C-20 40 60 -20 130 40 C200 -20 280 40 240 110 Z");
-  box-shadow: 0 0 25px rgba(255, 77, 109, 0.8);
-}
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-.heart-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
 
-/* Floating hearts */
-.heart {
-  position: absolute;
-  font-size: 20px;
-  animation: float 6s linear infinite;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@keyframes float {
-  0% { transform: translateY(100vh); opacity: 1; }
-  100% { transform: translateY(-10vh); opacity: 0; }
-}
-</style>
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.2rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <h1>💖 A Special Valentine’s Message 💖</h1>
+    <p>Click the heart below to open a message straight from my heart to yours.</p>
+    <button class="btn-heart" onclick="showLetter()"><i class="fas fa-heart"></i> Open My Heart</button>
 
-<div class="main">
-
-  <div class="left">
-    <h1>💖 Valentine’s Love Page</h1>
-
-    <input id="name" placeholder="Your Name">
-    <textarea id="msg" rows="4" placeholder="Write your love message..."></textarea>
-
-    <input type="file" accept="image/*" onchange="loadPhoto(event)">
-
-    <br><br>
-    <button onclick="createLove()">Create Love 💌</button>
-    <button onclick="shareLove()">Copy Share Link 🔗</button>
-  </div>
-
-  <div class="right">
-    <div id="letter">
-      <h2 id="toName"></h2>
-
-      <div class="heart-frame">
-        <img id="photo">
-      </div>
-
-      <p id="finalMsg"></p>
+    <div class="love-letter" id="loveLetter">
+      <p>Dear [Your Loved One’s Name],</p>
+      <p>
+        On this special day, I just want to say how much you mean to me.  
+        You make every moment brighter and every day sweeter.  
+        I’m grateful for your love, your laughter, and your heart. ❤️
+      </p>
+      <p>Forever yours, <br> [Your Name]</p>
     </div>
+
+    <footer>
+      Made with ❤️ by [Your Name]
+    </footer>
   </div>
 
-</div>
-
-<script>
-let uploadedImage = "";
-
-// Load photo
-function loadPhoto(event) {
-  const reader = new FileReader();
-  reader.onload = () => {
-    uploadedImage = reader.result;
-    document.getElementById("photo").src = uploadedImage;
-  };
-  reader.readAsDataURL(event.target.files[0]);
-}
-
-// Create love card
-function createLove() {
-  const name = document.getElementById("name").value || "My Love";
-  const msg = document.getElementById("msg").value || "You mean everything to me ❤️";
-
-  document.getElementById("toName").innerText = "Dear " + name + " 💕";
-  document.getElementById("finalMsg").innerText = msg;
-  document.getElementById("letter").style.display = "block";
-
-  const params = new URLSearchParams();
-  params.set("name", name);
-  params.set("msg", msg);
-  history.replaceState(null, "", "?" + params.toString());
-}
-
-// Copy share link
-function shareLove() {
-  navigator.clipboard.writeText(location.href);
-  alert("Share link copied 💖");
-}
-
-// Load shared data
-const url = new URLSearchParams(window.location.search);
-if (url.get("name")) {
-  document.getElementById("letter").style.display = "block";
-  document.getElementById("toName").innerText = "Dear " + url.get("name") + " 💕";
-  document.getElementById("finalMsg").innerText = url.get("msg");
-}
-
-// Floating hearts animation
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = Math.random() * 100 + "vw";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 6000);
-}, 450);
-</script>
-
+  <script>
+    function showLetter() {
+      const letter = document.getElementById('loveLetter');
+      letter.style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
